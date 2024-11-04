@@ -1,7 +1,13 @@
-import "./App.css";
+import { Component } from "react";
 
-function App() {
-  return <h5>Starting screen</h5>;
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <h1>Hello world!</h1>
+      </div>
+    );
+  }
 }
 
 export default App;
