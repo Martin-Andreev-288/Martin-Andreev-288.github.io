@@ -1,13 +1,13 @@
-import { Component } from "react";
+import formJSON from "./formData.json";
 
-class App extends Component {
-  render() {
-    return (
-      <div>
-        <h1>Hello world!</h1>
-      </div>
-    );
-  }
+import DynamicFormBuilder from "./dynamicFormBuilder";
+
+function App() {
+  return (
+    <div className="container">
+      <DynamicFormBuilder formJSON={formJSON} />
+    </div>
+  );
 }
 
 export default App;
