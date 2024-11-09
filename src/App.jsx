@@ -1,13 +1,20 @@
+import React from "react";
 import formJSON from "./formData.json";
+import DynamicFormBuilder from "./DynamicFormBuilder";
 
-import DynamicFormBuilder from "./dynamicFormBuilder";
+class App extends React.Component {
+  handleSubmit = (data) => {
+    console.log(data);
+  };
 
-function App() {
-  return (
-    <div className="container">
-      <DynamicFormBuilder formJSON={formJSON} />
-    </div>
-  );
+  render() {
+    return (
+      <div className="container">
+        <h1>Dynamic Form Builder</h1>
+        <DynamicFormBuilder formJSON={formJSON} onSubmit={this.handleSubmit} />
+      </div>
+    );
+  }
 }
 
 export default App;
