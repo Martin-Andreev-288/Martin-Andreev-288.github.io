@@ -9,7 +9,7 @@ class FormField extends Component {
     return (
       <div className="form-group">
         <label>
-          {label} {required && "*"}
+          {label} {required && label !== "Email" && "*"}
         </label>
         {type === "text" && (
           <input
