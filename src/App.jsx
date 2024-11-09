@@ -9,7 +9,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="container">
+      <div>
         <h1>Dynamic Form Builder</h1>
         <DynamicFormBuilder formJSON={formJSON} onSubmit={this.handleSubmit} />
       </div>
