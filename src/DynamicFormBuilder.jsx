@@ -1,4 +1,5 @@
 import { Component } from "react";
+import FormField from "./FormField";
 
 class DynamicFormBuilder extends Component {
   // constructor(props) {
@@ -64,79 +65,25 @@ class DynamicFormBuilder extends Component {
     return errors;
   };
 
-  // Render individual field based on type
-  renderField = (field) => {
-    const { id, label, type, placeholder, required, options } = field;
-    const { formData, errors } = this.state;
-
-    switch (type) {
-      case "text":
-        return (
-          <div key={id} className="form-group">
-            <label>
-              {label} {required && "*"}
-            </label>
-            <input
-              type="text"
-              id={id}
-              placeholder={placeholder || ""}
-              value={formData[id] || ""}
-              onChange={(e) => this.handleChange(id, e.target.value)}
-            />
-            {errors[id] && <div className="error">{errors[id]}</div>}
-          </div>
-        );
-      case "select":
-        return (
-          <div key={id} className="form-group">
-            <label>
-              {label} {required && "*"}
-            </label>
-            <select
-              id={id}
-              value={formData[id] || ""}
-              onChange={(e) => this.handleChange(id, e.target.value)}
-            >
-              <option value="">Select an option</option>
-              {options.map((option, index) => (
-                <option key={index} value={option.label}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-            {errors[id] && <div className="error">{errors[id]}</div>}
-          </div>
-        );
-      case "checkbox":
-        return (
-          <div key={id} className="form-group">
-            <label>
-              <input
-                type="checkbox"
-                id={id}
-                checked={formData[id] || false}
-                onChange={(e) => this.handleChange(id, e.target.checked)}
-              />
-              {label}
-            </label>
-          </div>
-        );
-      default:
-        return null;
-    }
-  };
-
   render() {
     const { formJSON } = this.props;
+    const { formData, errors } = this.state;
 
     return (
       <form onSubmit={this.handleSubmit}>
         {formJSON[0].fields.map((field) => {
-          // Conditional rendering for "Subscribe" checkbox
-          if (field.id === "email" && !this.state.formData.subscribe) {
+          if (field.id === "email" && !formData.subscribe) {
             return null;
           }
-          return this.renderField(field);
+          return (
+            <FormField
+              key={field.id}
+              field={field}
+              value={formData[field.id] || ""}
+              onChange={this.handleChange}
+              error={errors[field.id]}
+            />
+          );
         })}
         <button type="submit">Submit</button>
       </form>
