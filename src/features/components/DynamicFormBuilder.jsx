@@ -41,6 +41,11 @@ class DynamicFormBuilder extends Component {
       this.props.onSubmit(
         Object.entries(formData).map(([key, value]) => ({ [key]: value }))
       );
+      // Clear form data after successful submission
+      this.setState({
+        formData: {},
+        errors: {},
+      });
     } else {
       this.setState({ errors });
     }
