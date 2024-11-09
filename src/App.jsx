@@ -1,6 +1,6 @@
 import React from "react";
 import formJSON from "./config/formData.json";
-import DynamicFormBuilder from "./components/DynamicFormBuilder";
+import DynamicFormBuilder from "./features/components/DynamicFormBuilder";
 
 class App extends React.Component {
   handleSubmit = (data) => {

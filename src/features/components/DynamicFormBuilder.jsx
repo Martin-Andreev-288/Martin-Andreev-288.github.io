@@ -1,5 +1,5 @@
 import { Component } from "react";
-import FormField from "./FormField";
+import FormField from "../../components/FormField";
 
 class DynamicFormBuilder extends Component {
   state = {
