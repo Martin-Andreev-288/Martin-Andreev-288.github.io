@@ -2,13 +2,6 @@ import { Component } from "react";
 import FormField from "./FormField";
 
 class DynamicFormBuilder extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     formData: {},
-  //     errors: {},
-  //   };
-  // }
   state = {
     formData: {},
     errors: {},

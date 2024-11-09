@@ -43,7 +43,6 @@ class FormField extends Component {
             onChange={(e) => onChange(id, e.target.checked)}
           />
         )}
-        {/* {error && <div className="error">{error}</div>} */}
         <ErrorMessage error={error} />
       </div>
     );
