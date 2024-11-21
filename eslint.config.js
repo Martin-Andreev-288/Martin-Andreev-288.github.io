@@ -29,7 +29,8 @@ export default [
       ...reactHooks.configs.recommended.rules,
       'react/react-in-jsx-scope': 'off',
       'react/jsx-uses-react': 'off',
-      'no-console': 'warn'
+      'no-console': 'warn',
+      'react/prop-types': 0
     }
   }
 ];
