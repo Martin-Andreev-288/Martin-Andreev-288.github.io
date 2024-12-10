@@ -10,7 +10,7 @@ npm install
 
 ### Project Link:
 
-[Click this link](<../Upskill React 33/Module 1/Chapter 8 - Working with Components - Part 2/homework - as it was submitted>)
+[Click this link](https://martin-andreev-288.github.io/)
 
 ### Features and Configuration:
 
