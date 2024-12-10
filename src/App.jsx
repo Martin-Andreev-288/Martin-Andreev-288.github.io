@@ -1,7 +1,7 @@
 import formJSON from './config/formData.json';
 import DynamicFormBuilder from './features/components/DynamicFormBuilder';
 
-function App() {
+const App = () => {
   const handleSubmit = (data) => {
     // eslint-disable-next-line no-console
     console.log(data);
@@ -13,6 +13,6 @@ function App() {
       <DynamicFormBuilder formJSON={formJSON} onSubmit={handleSubmit} />
     </div>
   );
-}
+};
 
 export default App;

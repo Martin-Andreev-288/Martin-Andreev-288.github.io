@@ -1,4 +1,7 @@
 import ErrorMessage from './ErrorMessage';
+import TextInput from './TextInput';
+import SelectInput from './SelectInput';
+import CheckboxInput from './CheckboxInput';
 
 const FormField = ({ field, value, onChange, error }) => {
   const { id, label, type, placeholder, required, options } = field;
@@ -9,33 +12,12 @@ const FormField = ({ field, value, onChange, error }) => {
         {label} {required && label !== 'Email' && '*'}
       </label>
       {type === 'text' && (
-        <input
-          type="text"
-          id={id}
-          placeholder={placeholder || ''}
-          value={value || ''}
-          onChange={(e) => onChange(id, e.target.value)}
-        />
+        <TextInput id={id} placeholder={placeholder} value={value} onChange={onChange} />
       )}
       {type === 'select' && (
-        <select id={id} value={value || ''} onChange={(e) => onChange(id, e.target.value)}>
-          <option value="">Select an option</option>
-          {options &&
-            options.map((option, index) => (
-              <option key={index} value={option.label}>
-                {option.label}
-              </option>
-            ))}
-        </select>
+        <SelectInput id={id} value={value} onChange={onChange} options={options} />
       )}
-      {type === 'checkbox' && (
-        <input
-          type="checkbox"
-          id={id}
-          checked={value || false}
-          onChange={(e) => onChange(id, e.target.checked)}
-        />
-      )}
+      {type === 'checkbox' && <CheckboxInput id={id} checked={value} onChange={onChange} />}
       <ErrorMessage error={error} />
     </div>
   );
