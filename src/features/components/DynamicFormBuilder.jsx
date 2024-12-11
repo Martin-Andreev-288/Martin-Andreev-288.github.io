@@ -1,9 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import FormField from '../../components/FormField';
 
 const DynamicFormBuilder = ({ formJSON, onSubmit }) => {
   const [formData, setFormData] = useState({});
   const [errors, setErrors] = useState({});
+  const [visibleFields, setVisibleFields] = useState(formJSON[0].fields);
+
+  // Update visible fields when formData.subscribe changes
+  useEffect(() => {
+    const updatedFields = formJSON[0].fields.filter((field) => {
+      if (field.id === 'email' && !formData.subscribe) {
+        return false; // Exclude email if not subscribed
+      }
+      return true; // Include all other fields
+    });
+    setVisibleFields(updatedFields);
+  }, [formData.subscribe, formJSON]);
 
   // Handle change for form inputs
   const handleChange = (id, value) => {
@@ -48,7 +60,7 @@ const DynamicFormBuilder = ({ formJSON, onSubmit }) => {
   // Validate entire form
   const validateForm = () => {
     const errors = {};
-    formJSON[0].fields.forEach((field) => {
+    visibleFields.forEach((field) => {
       const value = formData[field.id];
       if (field.required && !value) {
         errors[field.id] = `${field.label} is required`;
@@ -59,20 +71,15 @@ const DynamicFormBuilder = ({ formJSON, onSubmit }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      {formJSON[0].fields.map((field) => {
-        if (field.id === 'email' && !formData.subscribe) {
-          return null;
-        }
-        return (
-          <FormField
-            key={field.id}
-            field={field}
-            value={formData[field.id] || ''}
-            onChange={handleChange}
-            error={errors[field.id]}
-          />
-        );
-      })}
+      {visibleFields.map((field) => (
+        <FormField
+          key={field.id}
+          field={field}
+          value={formData[field.id] || ''}
+          onChange={handleChange}
+          error={errors[field.id]}
+        />
+      ))}
       <button type="submit">Submit</button>
     </form>
   );
