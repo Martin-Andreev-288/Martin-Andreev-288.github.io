@@ -25,7 +25,7 @@ Although the original intent was to deploy via GitLab Pages, the deployment was 
 
 ### Dynamic Form Builder Integration:
 
-Refactored and migrated the Dynamic Form Builder (originally implemented using Class Components) into this new React environment. <br>
+Refactored and migrated the Dynamic Form Builder (originally implemented using Class Components) to use React hooks. <br>
 Ensured seamless compatibility with the build process and configuration of the updated project.
 
 ### Start the development server:
@@ -38,15 +38,21 @@ npm run dev
 
 ### src/components: Contains reusable components.
 
+CheckboxInput.jsx, SelectInput.jsx, TextInput.jsx: Components for the three different types of inputs in the app (for checkbox, for select and for text).
 FormField.jsx: A component for rendering individual form fields, including text inputs, select dropdowns, and checkboxes.
 ErrorMessage.jsx: A reusable component for displaying error messages. <br>
-src/config: Contains configuration files and static data.
+
+### src/config: Contains configuration files and static data.
+
+formData.json: The JSON configuration file used to specify the form schema, field properties, and any default values.
 
 ### src/features/components: Contains non reusable components.
 
 DynamicFormBuilder.jsx: The main form builder component that renders the form fields, manages form state, and handles validation.
 
-### formData.json: The JSON configuration file used to specify the form schema, field properties, and any default values.
+### src/hooks: Contains the state logic for the dynamic form builder
+
+useFormValidation.js: Custom hook that contains the logic for the validation of the fields and for the validation of the form
 
 ## Solution Overview
 
@@ -61,5 +67,4 @@ DynamicFormBuilder.jsx: The main form builder component that renders the form fi
 ## Assumptions
 
 The JSON schema (formData.json) serves as the single source of truth for the form structure, making it easy to add or modify fields without changing the component code. <br>
-Validation logic is currently limited to checking required fields, but it can be extended as needed. <br>
 The deployment was made to GitHub Pages instead of GitLab Pages due to unresolved privacy setting issues in GitLab.
