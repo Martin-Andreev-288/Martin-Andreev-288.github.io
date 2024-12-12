@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import FormField from '../../components/FormField';
+import useFormValidation from '../../hooks/useFormValidation';
 
 const DynamicFormBuilder = ({ formJSON, onSubmit }) => {
   const [formData, setFormData] = useState({});
   const [errors, setErrors] = useState({});
   const [visibleFields, setVisibleFields] = useState(formJSON[0].fields);
+  const { validateField, validateForm } = useFormValidation();
 
   // Update visible fields when formData.subscribe changes
   useEffect(() => {
@@ -24,49 +26,29 @@ const DynamicFormBuilder = ({ formJSON, onSubmit }) => {
       [id]: value
     }));
 
-    const updatedErrors = validateField(id, value);
+    const updatedErrors = {
+      [id]: validateField(
+        formJSON[0].fields.find((f) => f.id === id),
+        value
+      )
+    };
     setErrors((prevErrors) => ({
       ...prevErrors,
       ...updatedErrors
     }));
   };
 
-  // Validation function
-  const validateField = (id, value) => {
-    const fieldConfig = formJSON[0].fields.find((field) => field.id === id);
-    let error = '';
-    if (fieldConfig.required && !value) {
-      error = `${fieldConfig.label} is required`;
-    }
-    return { [id]: error };
-  };
-
   // Form submit handler
   const handleSubmit = (event) => {
     event.preventDefault();
-    const errors = validateForm();
-
+    const errors = validateForm(formJSON[0].fields, formData);
     if (Object.keys(errors).length === 0) {
-      // Call onSubmit handler passed from parent
       onSubmit(Object.entries(formData).map(([key, value]) => ({ [key]: value })));
-      // Clear form data after successful submission
       setFormData({});
       setErrors({});
     } else {
       setErrors(errors);
     }
-  };
-
-  // Validate entire form
-  const validateForm = () => {
-    const errors = {};
-    visibleFields.forEach((field) => {
-      const value = formData[field.id];
-      if (field.required && !value) {
-        errors[field.id] = `${field.label} is required`;
-      }
-    });
-    return errors;
   };
 
   return (
